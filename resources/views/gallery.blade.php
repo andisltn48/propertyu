@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Gallery - PropertyU</title>
+@extends('layouts.public')
+
+@section('title', 'Full Gallery — PropertyU')
+@section('description', 'Jelajahi galeri foto properti eksklusif PropertyU — hunian modern, arsitektur premium, dan desain interior terkini.')
+@section('og_title', 'Full Gallery — PropertyU')
+
+@push('head')
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,8 +151,9 @@
 
         footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); background: #fff; }
     </style>
-</head>
-<body>
+@endpush
+
+@section('content')
 
     <nav>
         <div class="container">
@@ -270,5 +272,4 @@
         // Initial animation
         document.addEventListener('DOMContentLoaded', animateItems);
     </script>
-</body>
-</html>
+@endsection

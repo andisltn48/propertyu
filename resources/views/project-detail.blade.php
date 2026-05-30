@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $project->name }} — PropertyU</title>
+@extends('layouts.public')
+
+@section('title')
+    {{ $project->name }} — PropertyU
+@endsection
+@section('description')
+    {{ Str::limit(strip_tags($project->detail), 160) }}
+@endsection
+@section('og_title')
+    {{ $project->name }} — PropertyU
+@endsection
+@if($project->images->first())
+  @section('og_image', asset('storage/' . $project->images->first()->image_path))
+@endif
+
+@push('head')
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -596,8 +606,22 @@
             z-index: 2;
         }
     </style>
-</head>
-<body>
+@endpush
+
+@section('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ $project->name }}",
+  "description": "{{ strip_tags($project->detail) }}",
+  "image": "{{ $project->images->first() ? asset('storage/' . $project->images->first()->image_path) : '' }}",
+  "url": "{{ url()->current() }}"
+}
+</script>
+@endsection
+
+@section('content')
 
     {{-- Navigation --}}
     <nav id="navbar">
@@ -612,6 +636,15 @@
                 </a>
             </div>
         </div>
+    </nav>
+
+    {{-- Breadcrumbs --}}
+    <nav aria-label="Breadcrumb" class="container">
+        <ol style="display:flex;gap:8px;list-style:none;padding:24px 0 0;font-size:13px;font-weight:500;color:var(--muted);">
+            <li><a href="{{ url('/') }}" style="color:var(--gold);text-decoration:none;">Home</a><span style="margin-left:8px;">/</span></li>
+            <li><a href="{{ route('public.projects') }}" style="color:var(--gold);text-decoration:none;">Projects</a><span style="margin-left:8px;">/</span></li>
+            <li aria-current="page" style="color:var(--muted);">{{ $project->name }}</li>
+        </ol>
     </nav>
 
     {{-- Hero Section --}}
@@ -782,5 +815,4 @@
         });
     </script>
 
-</body>
-</html>
+@endsection

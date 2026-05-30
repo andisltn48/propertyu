@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Tour — {{ $project->name }} — PropertyU</title>
+@extends('layouts.public')
 
+@section('title', "3D Tour — {{ $project->name }} — PropertyU")
+@section('description', 'Jelajahi tur virtual 3D properti PropertyU secara interaktif.')
+@section('og_title', "3D Tour — {{ $project->name }} — PropertyU")
+@section('robots', 'noindex, follow')
+
+@push('head')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:opsz@8..72&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -312,9 +313,9 @@
             .walk-instructions { font-size: 0.65rem; padding: 8px 14px; bottom: 24px; }
         }
     </style>
-</head>
-<body>
+@endpush
 
+@section('content')
     <!-- Top Bar -->
     <div class="top-bar" id="topBar">
         <a href="{{ route('public.projects.detail', $project) }}" class="back-btn">
@@ -613,5 +614,4 @@
             w.clock = new THREE.Clock();
         };
     </script>
-</body>
-</html>
+@endsection

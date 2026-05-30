@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio — PropertyU</title>
+@extends('layouts.public')
 
+@section('title', 'Portfolio — PropertyU')
+@section('description', 'Jelajahi portofolio properti eksklusif dari PropertyU — rumah impian, apartemen modern, dan kawasan hunian premium di Indonesia.')
+@section('og_title', 'Portfolio — PropertyU')
+
+@push('head')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&display=swap" rel="stylesheet">
@@ -337,8 +337,9 @@
             .project-overlay h3 { font-size: 1.3rem; }
         }
     </style>
-</head>
-<body>
+@endpush
+
+@section('content')
 
     {{-- Navigation --}}
     <nav id="navbar">
@@ -481,5 +482,4 @@
         });
     </script>
 
-</body>
-</html>
+@endsection

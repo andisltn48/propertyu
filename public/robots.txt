@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /users
+Allow: /
+
+Sitemap: https://propertyu.id/sitemap.xml

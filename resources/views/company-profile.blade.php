@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PropertyU — Visionary Living Redefined</title>
+@extends('layouts.public')
 
+@section('title', 'PropertyU — Visionary Living Redefined')
+@section('description', 'PropertyU menghadirkan hunian modern, apartemen premium, dan kawasan properti eksklusif di Indonesia. Wujudkan visi hunian impian Anda.')
+@section('og_title', 'PropertyU — Visionary Living Redefined')
+
+@push('head')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&display=swap" rel="stylesheet">
@@ -859,8 +859,25 @@
         .stagger-3 { transition-delay: 0.3s; }
         .stagger-4 { transition-delay: 0.4s; }
     </style>
-</head>
-<body>
+@endpush
+
+@section('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "PropertyU",
+  "url": "{{ url('/') }}",
+  "description": "PropertyU menghadirkan hunian modern, apartemen premium, dan kawasan properti eksklusif di Indonesia.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service"
+  }
+}
+</script>
+@endsection
+
+@section('content')
 
     {{-- Navigation --}}
     <nav id="navbar">
@@ -1228,5 +1245,4 @@
         document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
     </script>
 
-</body>
-</html>
+@endsection

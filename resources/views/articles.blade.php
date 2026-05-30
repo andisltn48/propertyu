@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Articles — PropertyU</title>
+@extends('layouts.public')
 
+@section('title', 'Articles — PropertyU')
+@section('description', 'Baca artikel dan berita terbaru seputar properti, hunian, dan investasi dari PropertyU.')
+@section('og_title', 'Articles — PropertyU')
+
+@push('head')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&display=swap" rel="stylesheet">
@@ -289,9 +289,9 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
-</head>
-<body>
+@endpush
 
+@section('content')
     <nav id="navbar">
         <div class="container">
             <div class="nav-inner">
@@ -371,6 +371,4 @@
             navbar.classList.toggle('nav-scrolled', window.scrollY > 60);
         });
     </script>
-
-</body>
-</html>
+@endsection

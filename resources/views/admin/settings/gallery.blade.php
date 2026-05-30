@@ -71,7 +71,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             @forelse($galleries as $gallery)
             <div class="relative group aspect-[4/5] rounded-xl overflow-hidden bg-[#F6F3EF] shadow-sm hover:shadow-md transition-all duration-500 hover:-translate-y-1">
-                <img src="{{ asset('storage/' . $gallery->image_path) }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <img src="{{ asset('storage/' . $gallery->image_path) }}" alt="Gallery image" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
 
                 <div class="absolute inset-0 bg-gradient-to-t from-[#1C1C1C]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <form action="{{ route('admin.gallery.delete', $gallery->id) }}" method="POST" onsubmit="return confirm('Hapus foto ini dari galeri?')">

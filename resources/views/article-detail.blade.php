@@ -1,9 +1,16 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $article->title }} — PropertyU</title>
+@extends('layouts.public')
+
+@section('title')
+    {{ $article->title }} — PropertyU
+@endsection
+@section('description')
+    {{ $article->content ? Str::limit(strip_tags($article->content), 160) : 'Baca artikel properti lengkap di PropertyU.' }}
+@endsection
+@section('og_title')
+    {{ $article->title }} — PropertyU
+@endsection
+
+@push('head')
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,8 +296,25 @@
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
     </style>
-</head>
-<body>
+
+    @section('jsonld')
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ $article->title }}",
+      "datePublished": "{{ $article->published_at }}",
+      "author": {
+        "@type": "Organization",
+        "name": "PropertyU"
+      }
+    }
+    </script>
+    @endsection
+
+@endpush
+
+@section('content')
 
     {{-- Navigation --}}
     <nav id="navbar">
@@ -305,6 +329,15 @@
                 </a>
             </div>
         </div>
+    </nav>
+
+    {{-- Breadcrumbs --}}
+    <nav aria-label="Breadcrumb" class="container">
+        <ol style="display:flex;gap:8px;list-style:none;padding:24px 0 0;font-size:13px;font-weight:500;color:var(--muted);">
+            <li><a href="{{ url('/') }}" style="color:var(--gold);text-decoration:none;">Home</a><span style="margin-left:8px;">/</span></li>
+            <li><a href="{{ route('public.articles') }}" style="color:var(--gold);text-decoration:none;">Articles</a><span style="margin-left:8px;">/</span></li>
+            <li aria-current="page" style="color:var(--muted);">{{ $article->title }}</li>
+        </ol>
     </nav>
 
     {{-- Article Hero --}}
@@ -386,5 +419,4 @@
         });
     </script>
 
-</body>
-</html>
+@endsection

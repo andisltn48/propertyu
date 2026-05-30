@@ -7,7 +7,42 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\UserController;
+use App\Models\Article;
+use App\Models\Project;
 use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
+// Sitemap
+Route::get('/sitemap.xml', function () {
+    $sitemap = Sitemap::create();
+
+    $sitemap->add(Url::create('/')->setPriority(1.0)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
+    $sitemap->add(Url::create('/projects')->setPriority(0.9)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
+    $sitemap->add(Url::create('/gallery')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
+    $sitemap->add(Url::create('/articles')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
+
+    Project::all()->each(function (Project $project) use ($sitemap) {
+        $sitemap->add(Url::create("/projects/{$project->id}")
+            ->setPriority(0.7)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+            ->setLastModificationDate($project->updated_at));
+        if ($project->file_3d_path) {
+            $sitemap->add(Url::create("/projects/{$project->id}/3d-tour")
+                ->setPriority(0.4)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+        }
+    });
+
+    Article::all()->each(function (Article $article) use ($sitemap) {
+        $sitemap->add(Url::create("/articles/{$article->id}")
+            ->setPriority(0.6)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+            ->setLastModificationDate($article->updated_at));
+    });
+
+    return $sitemap->render();
+});
 
 // Public routes
 Route::get('/', [CompanyProfileController::class, 'index']);
