@@ -5,30 +5,57 @@
 @section('content')
 <div class="space-y-8">
     <div class="bg-[#FDFBF9] p-10 rounded-2xl border border-[#E5DDD4] shadow-sm">
-        <form action="{{ route('admin.gallery.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('admin.gallery.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="uploadForm">
             @csrf
             <div>
                 <label class="block text-sm font-bold text-[#1C1C1C] mb-4">Add Photos to Gallery</label>
                 <div class="relative group">
-                    <input type="file" name="images[]" multiple required
-                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
-                    <div class="w-full py-16 border-2 border-dashed border-[#E5DDD4] rounded-2xl flex flex-col items-center justify-center bg-[#F6F3EF] group-hover:bg-[#FDFBF9] group-hover:border-[#B8914A]/40 transition-all">
-                        <div class="w-14 h-14 bg-[#FDFBF9] rounded-xl shadow-sm flex items-center justify-center text-[#6B6B6B] mb-4 group-hover:text-[#B8914A] transition-colors">
+                    <input type="file" name="images[]" multiple required id="fileInput"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        onchange="updateFileLabel(this)">
+                    <div id="dropzone" class="w-full py-16 border-2 border-dashed border-[#E5DDD4] rounded-2xl flex flex-col items-center justify-center bg-[#F6F3EF] group-hover:bg-[#FDFBF9] group-hover:border-[#B8914A]/40 transition-all">
+                        <div id="uploadIcon" class="w-14 h-14 bg-[#FDFBF9] rounded-xl shadow-sm flex items-center justify-center text-[#6B6B6B] mb-4 group-hover:text-[#B8914A] transition-colors">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </div>
-                        <p class="text-base font-bold text-[#6B6B6B]">Select multiple images to upload</p>
+                        <p id="fileLabel" class="text-base font-bold text-[#6B6B6B]">Select multiple images to upload</p>
                         <p class="text-xs text-[#6B6B6B] mt-2 font-medium opacity-70">JPG, PNG, WEBP (Max 3MB per file)</p>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" class="px-10 py-4 bg-[#1C1C1C] text-white rounded-xl font-bold hover:bg-[#B8914A] transition-all">
-                    Start Uploading
+                <button type="submit" id="submitBtn" class="px-10 py-4 bg-[#1C1C1C] text-white rounded-xl font-bold hover:bg-[#B8914A] transition-all">
+                    <span id="btnText">Start Uploading</span>
+                    <span id="btnSpinner" class="hidden">
+                        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Processing...
+                    </span>
                 </button>
             </div>
         </form>
     </div>
+
+    <script>
+        function updateFileLabel(input) {
+            const count = input.files.length;
+            const label = document.getElementById('fileLabel');
+            label.textContent = count + ' file' + (count > 1 ? 's' : '') + ' selected';
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            const btn = document.getElementById('submitBtn');
+            const text = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+            btn.disabled = true;
+            btn.classList.remove('hover:bg-[#B8914A]');
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+            text.classList.add('hidden');
+            spinner.classList.remove('hidden');
+        });
+    </script>
 
     <div class="bg-[#FDFBF9] p-10 rounded-2xl border border-[#E5DDD4] shadow-sm">
         <div class="flex items-center justify-between mb-10">

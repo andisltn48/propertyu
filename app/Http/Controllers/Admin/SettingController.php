@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessGalleryUpload;
 use App\Models\About;
 use App\Models\Contact;
 use App\Models\HeroImage;
@@ -30,11 +31,11 @@ class SettingController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $path = $file->store('gallery', 'public');
-                Gallery::create(['image_path' => $path]);
+                ProcessGalleryUpload::dispatch($path);
             }
         }
 
-        return back()->with('success', 'Images added to gallery successfully.');
+        return back()->with('success', 'Images are being processed and will appear in the gallery shortly.');
     }
 
     public function deleteGallery($id)
