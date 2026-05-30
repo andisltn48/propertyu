@@ -22,6 +22,8 @@ Route::get('/articles/{article}', [CompanyProfileController::class, 'articleDeta
 Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [LoginController::class, 'login']);
 
+Route::get('/users/create', [RegisterController::class, 'showRegistrationForm'])->name('users.create');
+Route::post('/users', [RegisterController::class, 'register'])->name('users.store');
 // Protected Admin Routes
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -30,8 +32,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Admin Users Management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [RegisterController::class, 'showRegistrationForm'])->name('users.create');
-    Route::post('/users', [RegisterController::class, 'register'])->name('users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');

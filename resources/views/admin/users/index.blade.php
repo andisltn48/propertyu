@@ -9,7 +9,7 @@
             <h3 class="text-xl font-bold text-[#1C1C1C]">Admin Users</h3>
             <p class="text-sm text-[#6B6B6B] font-medium">Manage who has access to the admin panel</p>
         </div>
-        <a href="{{ route('admin.users.create') }}" class="px-6 py-3 bg-[#B8914A] text-white rounded-xl font-bold hover:bg-[#8E6F36] transition-all flex items-center gap-2 text-sm">
+        <a href="{{ route('users.create') }}" class="px-6 py-3 bg-[#B8914A] text-white rounded-xl font-bold hover:bg-[#8E6F36] transition-all flex items-center gap-2 text-sm">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
             Create New Admin
         </a>
