@@ -611,8 +611,8 @@
 @section('jsonld')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Product",
+  "@@context": "https://schema.org",
+  "@@type": "Product",
   "name": "{{ $project->name }}",
   "description": "{{ strip_tags($project->detail) }}",
   "image": "{{ $project->images->first() ? asset('storage/' . $project->images->first()->image_path) : '' }}",

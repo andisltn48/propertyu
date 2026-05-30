@@ -300,12 +300,12 @@
     @section('jsonld')
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "Article",
+      "@@context": "https://schema.org",
+      "@@type": "Article",
       "headline": "{{ $article->title }}",
       "datePublished": "{{ $article->published_at }}",
       "author": {
-        "@type": "Organization",
+        "@@type": "Organization",
         "name": "PropertyU"
       }
     }

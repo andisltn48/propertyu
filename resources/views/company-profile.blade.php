@@ -864,13 +864,13 @@
 @section('jsonld')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
+  "@@context": "https://schema.org",
+  "@@type": "RealEstateAgent",
   "name": "PropertyU",
   "url": "{{ url('/') }}",
   "description": "PropertyU menghadirkan hunian modern, apartemen premium, dan kawasan properti eksklusif di Indonesia.",
   "contactPoint": {
-    "@type": "ContactPoint",
+    "@@type": "ContactPoint",
     "contactType": "customer service"
   }
 }
